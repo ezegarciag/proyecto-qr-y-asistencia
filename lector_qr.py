@@ -3,6 +3,8 @@ from pyzbar.pyzbar import decode
 import time
 import threading
 import pygame
+import excel
+
 
 class QRDetector:
     def __init__(self, callback):
@@ -64,8 +66,10 @@ def handle_decoded_name(nombre, frame, detector, sound):
     cv2.putText(frame, 'OK', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)  # Muestra 'OK' en la ventana
     cv2.imshow('Camara', frame)
     
+    excel.escribir_en_excel(nombre)
     # Reproducir audio
     sound.play()
+    
 
     # Espera 2 segundos antes de cerrar la ventana
     if not detector.timer_running:  # Acceder al atributo timer_running desde una instancia de QRDetector
