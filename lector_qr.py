@@ -3,8 +3,7 @@ from pyzbar.pyzbar import decode
 import time
 import threading
 import pygame
-import excel
-
+import asistencia
 
 class QRDetector:
     def __init__(self, callback):
@@ -66,7 +65,7 @@ def handle_decoded_name(nombre, frame, detector, sound):
     cv2.putText(frame, 'OK', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)  # Muestra 'OK' en la ventana
     cv2.imshow('Camara', frame)
     
-    excel.escribir_en_excel(nombre)
+    asistencia.asistencia(nombre)
     # Reproducir audio
     sound.play()
     
@@ -81,5 +80,11 @@ pygame.init()
 pygame.mixer.init()
 sound = pygame.mixer.Sound("Windows 12 Startup Sound (mp3cut.net).mp3")  # Ruta al archivo de audio
 
+
+
 # Lee el nombre decodificado desde la cámara web utilizando el callback
+#asistencia.comparacion()
+
 leer_qr_camara(lambda nombre, frame, detector: handle_decoded_name(nombre, frame, detector, sound))
+asistencia.marcar_asistencia_final()
+asistencia.completar_fechas_vacias()
